@@ -1,0 +1,26 @@
+h1 {
+    color: navy;
+}
+
+img {
+    width: 150px;
+}
+
+.boxes{
+    width:80%;
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border: navy 5px double;
+    margin: 10px; auto;
+    background-color: cornsilk;
+}
+
+.content {
+    background-color: PeachPuff;
+    padding: 2px 20px;
+    height: 80%;
+    border: indigo 2px solid;
+}
