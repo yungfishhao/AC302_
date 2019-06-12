@@ -37,8 +37,44 @@ function create(){
     lifetext = game.add.text(120,5,life,style);
     lifelabel.setShadow(3,3,'rgba(0,0,0,0.5)',2);
     lifetext.setShadow(3,3,'rgba(0,0,0,0.5)',2);
+
+    play = game.add.sprite(32,400,'dude');
+        play.animations.add('left',[0,1,2,3],10,true);
+        play.animations.add('right',[5,6,7,8],10,true);
+        game.physics.arcade.enable(player);
+        player.body.bounce.y = 0.2;
+        player.body.gravity.y = 300;
+        player.body.collideWorldBounds = true;
+
+    stars = game.add.physicsGroup();
+    stars.enableBody = true;
+
+    for(var i = 0; i < 12; i++){
+        var star = stars.create(i * 70, 0, 'star');
+        star.body.gravity.y = 200;
+        star.body.bounce.y = 0.7 + Math.random() * 0.2;
+    }
+
+    cursors = game.input.keyboard.createCursorKeys();
 }
 
 function update(){
+    game.physics.arcade.collide(player, platforms);
+    game.Physics.arcade.collide(stars, platforms);
+    game.physics.arcade.collide(enemy1, platforms);
 
+    player.body.velocity.x = 0;
+    if(cursors.left.isDown){
+        player.body.velocity.x = -150;
+        player.animations.play('left');
+    } else if(cursors.right.isDown){
+        player.body.velocity.x = 150;
+        player.animations.play('right');
+    } else {
+        players.animations.stop();
+        player.frame = 4;
+    }
+    if(cursors.up.isDown && player.body.touching.down){
+        player.body.velocity.y = -300;
+    }
 }
