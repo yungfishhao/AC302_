@@ -38,13 +38,21 @@ function create(){
     lifelabel.setShadow(3,3,'rgba(0,0,0,0.5)',2);
     lifetext.setShadow(3,3,'rgba(0,0,0,0.5)',2);
 
-    play = game.add.sprite(32,400,'dude');
-        play.animations.add('left',[0,1,2,3],10,true);
-        play.animations.add('right',[5,6,7,8],10,true);
+    player = game.add.sprite(32,400,'dude');
+        player.animations.add('left',[0,1,2,3],10,true);
+        player.animations.add('right',[5,6,7,8],10,true);
         game.physics.arcade.enable(player);
         player.body.bounce.y = 0.2;
         player.body.gravity.y = 300;
         player.body.collideWorldBounds = true;
+
+    enemy1 = game.addsprite(760,20,'baddie');
+        enemy1.animations.add('left',[0,1],10,true);
+        enemy1.animations.add('right',[2,3],10,true);
+        game.physics.arcade.enable(enemy1);
+        enemy1.body.bounce.y = 0.2;
+        enemy1.body.gravity.y = 500;
+        enemy1.body.collideWorldBounds = true;
 
     stars = game.add.physicsGroup();
     stars.enableBody = true;
@@ -64,6 +72,7 @@ function update(){
     game.physics.arcade.collide(enemy1, platforms);
 
     player.body.velocity.x = 0;
+
     if(cursors.left.isDown){
         player.body.velocity.x = -150;
         player.animations.play('left');
@@ -74,6 +83,7 @@ function update(){
         players.animations.stop();
         player.frame = 4;
     }
+    
     if(cursors.up.isDown && player.body.touching.down){
         player.body.velocity.y = -300;
     }
